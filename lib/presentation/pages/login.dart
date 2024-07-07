@@ -1,14 +1,9 @@
-// ignore_for_file: unused_element, prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pcnc_ecommerce/Data/repository/data_repo.dart';
-import 'package:pcnc_ecommerce/Domain/usecases/login_useCase.dart';
 import 'package:pcnc_ecommerce/presentation/controller/login_controller.dart';
 
 class Login extends StatelessWidget {
-  final LoginController lcontroller = Get.put(LoginController(
-            loginUseCase: LoginUseCase(repository: LoginRepositoryImpl()) ));
+  final LoginController lcontroller = Get.find<LoginController>();
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -18,9 +13,7 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Container(
-        
         margin: const EdgeInsets.all(24),
         child: Column(
           children: [

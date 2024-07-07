@@ -48,11 +48,14 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(top: 11),
       child: Card(
-        elevation: 3,
+      
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          
+          borderRadius: BorderRadius.circular(5),
+          
+          
         ),
         child: SizedBox(
           width: 241, // Width as per Figma design
@@ -62,11 +65,11 @@ class ProductCard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16),
+                  topLeft: Radius.circular(5),
+                  topRight: Radius.circular(5),
                 ),
                 child: AspectRatio(
-                  aspectRatio: 1.6,
+                  aspectRatio: 1.467,
                   child: product.images.isNotEmpty
                       ? Image.network(
                           product.images[0],
@@ -118,7 +121,7 @@ class ProductCard extends StatelessWidget {
                         color: Colors.black,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 1),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -127,13 +130,13 @@ class ProductCard extends StatelessWidget {
                           onPressed: () {},
                         ),
                         IconButton(
-                          icon: const Icon(Icons.bookmark_border),
+                          icon: const Icon(Icons.bookmark),
                           onPressed: () {},
                         ),
                         const Spacer(),
                         const SizedBox(width: 5),
                         IconButton(
-                          icon: const Icon(Icons.shopping_cart),
+                          icon: const Icon(Icons.add_shopping_cart),
                           onPressed: () {},
                         ),
                       ],

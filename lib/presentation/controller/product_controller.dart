@@ -1,7 +1,7 @@
-// controller/products_controller.dart
 import 'package:get/get.dart';
 import 'package:pcnc_ecommerce/data/repository/product_repo.dart';
 import 'package:pcnc_ecommerce/domain/entities/productmodel.dart';
+import 'package:flutter/widgets.dart';
 
 class ProductController extends GetxController {
   final ProductRepository _repository = ProductRepository();
@@ -11,7 +11,9 @@ class ProductController extends GetxController {
 
   @override
   void onInit() {
-    fetchProducts();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      fetchProducts();
+    });
     super.onInit();
   }
 
@@ -19,7 +21,7 @@ class ProductController extends GetxController {
     isLoading.value = true;
     try {
       List<Product> fetchedProducts = (await _repository.fetchProducts()).cast<Product>();
-      products.value = fetchedProducts;
+      products.value = fetchedProducts.take(4).toList();
       isError.value = false;
     } catch (e) {
       isError.value = true;
