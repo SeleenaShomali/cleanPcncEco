@@ -149,12 +149,14 @@ class _HomeScreenState extends State<HomeScreen> {
           SizedBox(height: 30),
           ProductList(),
           SizedBox(height: 20),
-          TendingProducts(),
+         
           Padding(
             padding: const EdgeInsets.all(15),
             child: TrendingProductsWidget(),
           ),
           SizedBox(height: 30),
+           TendingProducts(),
+            SizedBox(height: 60),
         ],
       ),
       bottomNavigationBar: CustomBottomNavigationBar(),

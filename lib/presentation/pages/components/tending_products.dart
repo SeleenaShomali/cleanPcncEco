@@ -22,8 +22,10 @@ class TendingProducts extends StatelessWidget {
       } else {
         return Expanded(
           child: GridView.builder(
+            scrollDirection: Axis.horizontal,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
+              
+              crossAxisCount: 1,
               crossAxisSpacing: 8.0,
               mainAxisSpacing: 8.0,
               childAspectRatio:
