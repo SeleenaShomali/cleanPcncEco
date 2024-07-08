@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pcnc_ecommerce/Domain/entities/user.dart';
 import 'package:pcnc_ecommerce/Domain/usecases/login_useCase.dart';
@@ -6,9 +7,16 @@ import 'dart:convert';
 
 class LoginController extends GetxController {
   var isLoggedIn = false.obs;
-  var user = User(accessToken: 'accessToken', refreshToken: 'refreshToken', email: 'email').obs;
+  var user = User(
+    accessToken: 'accessToken',
+    refreshToken: 'refreshToken',
+    email: 'email',
+  ).obs;
 
   final LoginUseCase loginUseCase;
+
+  // Observable for password visibility
+  RxBool isObscure = true.obs;
 
   LoginController({required this.loginUseCase});
 
@@ -51,5 +59,16 @@ class LoginController extends GetxController {
       user.value = User.fromJson(userData);
       isLoggedIn.value = true;
     }
+  }
+
+  // Method to toggle password visibility
+  void toggleObscure() {
+    isObscure.value = !isObscure.value;
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    initializeLoginState();
   }
 }

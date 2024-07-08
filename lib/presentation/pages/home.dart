@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    
+
     // Initialize controllers
     authController = Get.put(
       AuthController(
@@ -81,83 +81,85 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: Container(
-              decoration: BoxDecoration(boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.02),
-                ),
-              ]),
-              child: SizedBox(
-                height: 50,
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Search any Product...',
-                    hintStyle: TextStyle(color: Colors.grey),
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(10.0),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Container(
+                decoration: BoxDecoration(boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.02),
+                  ),
+                ]),
+                child: SizedBox(
+                  height: 50,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search any Product...',
+                      hintStyle: TextStyle(color: Colors.grey),
+                      prefixIcon: Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
                     ),
-                    filled: true,
-                    fillColor: Colors.white,
                   ),
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Text(
-                  'All Categories',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(width: 8),
-                GestureDetector(
-                  onTap: () {
-                    Get.offAllNamed('/AllCat');
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 173),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text(
-                        'See All',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Text(
+                    'All Categories',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(width: 8),
+                  GestureDetector(
+                    onTap: () {
+                      Get.offAllNamed('/AllCat');
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 150),
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          'See All',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 20),
-          CategoryList(),
-          SizedBox(height: 30),
-          ProductList(),
-          SizedBox(height: 20),
-         
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: TrendingProductsWidget(),
-          ),
-          SizedBox(height: 30),
-           TendingProducts(),
+            SizedBox(height: 20),
+            CategoryList(),
+            SizedBox(height: 30),
+            ProductList(), // Removed Expanded from here
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: TrendingProductsWidget(),
+            ),
+            SizedBox(height: 30),
+            TendingProducts(),
             SizedBox(height: 60),
-        ],
+          ],
+        ),
       ),
       bottomNavigationBar: CustomBottomNavigationBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

@@ -44,69 +44,78 @@ class Login extends StatelessWidget {
   }
 
   Widget _inputFiled() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        TextField(
-          controller: emailController,
-          decoration: InputDecoration(
+    return Obx(
+      () => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          TextField(
+            controller: emailController,
+            decoration: InputDecoration(
               hintText: "Username or Email",
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(18),
               ),
               fillColor: Colors.black.withOpacity(0.1),
               filled: true,
-              prefixIcon: const Icon(Icons.person)),
-        ),
-        const SizedBox(
-          height: 35,
-        ),
-        TextField(
-          controller: passwordController,
-          decoration: InputDecoration(
-            hintText: "password",
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(18),
+              prefixIcon: const Icon(Icons.person),
             ),
-            fillColor: Colors.black.withOpacity(0.1),
-            filled: true,
-            prefixIcon: const Icon(Icons.lock),
           ),
-          obscureText: true,
-        ),
-        Padding(
-          padding: const EdgeInsets.all(10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(
-                "Forget Password?",
-                style: TextStyle(color: Colors.red),
+          const SizedBox(height: 35),
+          TextField(
+            controller: passwordController,
+            decoration: InputDecoration(
+              hintText: "Password",
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(18),
               ),
-            ],
+              fillColor: Colors.black.withOpacity(0.1),
+              filled: true,
+              prefixIcon: const Icon(Icons.lock),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  lcontroller.isObscure.value
+                      ? Icons.visibility_off
+                      : Icons.visibility,
+                  color: Colors.grey,
+                ),
+                onPressed: () {
+                  lcontroller.toggleObscure();
+                },
+              ),
+            ),
+            obscureText: lcontroller.isObscure.value,
           ),
-        ),
-        const SizedBox(
-          height: 35,
-        ),
-        ElevatedButton(
-          onPressed: () {
-            lcontroller.login(emailController.text, passwordController.text);
-          },
-          style: ElevatedButton.styleFrom(
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  "Forget Password?",
+                  style: TextStyle(color: Colors.red),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 35),
+          ElevatedButton(
+            onPressed: () {
+              lcontroller.login(emailController.text, passwordController.text);
+            },
+            style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(4)),
               padding: EdgeInsets.symmetric(vertical: 14),
-              backgroundColor: Colors.orange),
-          child: const Text(
-            "Login",
-            style: TextStyle(fontSize: 20, color: Colors.white),
+              backgroundColor: Colors.orange,
+            ),
+            child: const Text(
+              "Login",
+              style: TextStyle(fontSize: 20, color: Colors.white),
+            ),
           ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-      ],
+          const SizedBox(height: 20),
+        ],
+      ),
     );
   }
 
@@ -123,7 +132,7 @@ class Login extends StatelessWidget {
             "Sign Up",
             style: TextStyle(color: Colors.red),
           ),
-        )
+        ),
       ],
     );
   }
