@@ -9,7 +9,8 @@ import 'package:pcnc_ecommerce/presentation/controller/product_controller.dart';
 import 'package:pcnc_ecommerce/presentation/pages/components/Bottom_nav.dart';
 import 'package:pcnc_ecommerce/presentation/pages/components/category.dart';
 import 'package:pcnc_ecommerce/presentation/pages/components/products.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:pcnc_ecommerce/presentation/pages/components/tending_products.dart';
+import 'package:pcnc_ecommerce/presentation/pages/components/trending_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -17,22 +18,28 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final AuthController authController = Get.put(
-    AuthController(
-      logoutUseCase: LogoutUseCase(
-        repository: LogoutRepositoryImpl(
-          storage: FlutterSecureStorage(),
-          sharedPreferences: Get.find(),
-        ),
-      ),
-    ),
-  );
-  final categoryController = Get.put(CategoryController());
-  final productController = Get.put(ProductController());
+  late final AuthController authController;
+  late final CategoryController categoryController;
+  late final ProductController productController;
 
   @override
   void initState() {
     super.initState();
+    
+    // Initialize controllers
+    authController = Get.put(
+      AuthController(
+        logoutUseCase: LogoutUseCase(
+          repository: LogoutRepositoryImpl(
+            storage: FlutterSecureStorage(),
+            sharedPreferences: Get.find(),
+          ),
+        ),
+      ),
+    );
+    categoryController = Get.put(CategoryController());
+    productController = Get.put(ProductController());
+
     categoryController.fetchCategories();
     productController.fetchProducts();
   }
@@ -41,7 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: Color.fromARGB(255, 255, 255, 255),
         title: Row(
           children: [
             Padding(
@@ -51,7 +57,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-
         actions: [
           IconButton(
             icon: Icon(Icons.account_circle),
@@ -84,10 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Container(
               decoration: BoxDecoration(boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.02), // Shadow color
-                  // spreadRadius: 1, // Spread radius
-                  //blurRadius: 1, // Blur radius
-                  // Shadow position
+                  color: Colors.grey.withOpacity(0.02),
                 ),
               ]),
               child: SizedBox(
@@ -96,16 +98,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   decoration: InputDecoration(
                     hintText: 'Search any Product...',
                     hintStyle: TextStyle(color: Colors.grey),
-                
                     prefixIcon: Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(
-                        10.0,
-                      ),
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
-                    filled:
-                        true, // Ensures the background is filled, showing the shadow
+                    filled: true,
                     fillColor: Colors.white,
                   ),
                 ),
@@ -120,18 +118,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   'All Categories',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(width: 8), // Adjust spacing as needed
+                SizedBox(width: 8),
                 GestureDetector(
                   onTap: () {
-                    // Navigate or perform action when "See All" is tapped
-                    print('See All tapped');
-                    // Replace with navigation logic or any action you want
+                    Get.offAllNamed('/AllCat');
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(left: 173),
                     child: Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                      padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
@@ -149,13 +144,17 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-          SizedBox(
-            height: 20,
-          ),
+          SizedBox(height: 20),
           CategoryList(),
           SizedBox(height: 30),
-          ProductList(), // Replace Expanded with ProductList widget
-          // Other components can be added here
+          ProductList(),
+          SizedBox(height: 20),
+          TendingProducts(),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: TrendingProductsWidget(),
+          ),
+          SizedBox(height: 30),
         ],
       ),
       bottomNavigationBar: CustomBottomNavigationBar(),

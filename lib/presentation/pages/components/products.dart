@@ -50,12 +50,8 @@ class ProductCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 11),
       child: Card(
-      
         shape: RoundedRectangleBorder(
-          
-          borderRadius: BorderRadius.circular(5),
-          
-          
+          borderRadius: BorderRadius.circular(6),
         ),
         child: SizedBox(
           width: 241, // Width as per Figma design
@@ -65,11 +61,13 @@ class ProductCard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(5),
-                  topRight: Radius.circular(5),
+                  topLeft: Radius.circular(4),
+                  topRight: Radius.circular(4),
+                  bottomLeft: Radius.circular(4),
+                  bottomRight: Radius.circular(4),
                 ),
                 child: AspectRatio(
-                  aspectRatio: 1.467,
+                  aspectRatio: 1.55,
                   child: product.images.isNotEmpty
                       ? Image.network(
                           product.images[0],
@@ -99,16 +97,16 @@ class ProductCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 14, // Adjusted font size
+                        fontSize: 12, // Adjusted font size
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       product.description,
-                      maxLines: 1,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontSize: 12, // Adjusted font size
+                        fontSize: 10, // Adjusted font size
                         color: Colors.grey[600],
                       ),
                     ),
@@ -121,9 +119,9 @@ class ProductCard extends StatelessWidget {
                         color: Colors.black,
                       ),
                     ),
-                    const SizedBox(height: 1),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         IconButton(
                           icon: const Icon(Icons.favorite_border),
@@ -134,7 +132,7 @@ class ProductCard extends StatelessWidget {
                           onPressed: () {},
                         ),
                         const Spacer(),
-                        const SizedBox(width: 5),
+                        const SizedBox(width: 7),
                         IconButton(
                           icon: const Icon(Icons.add_shopping_cart),
                           onPressed: () {},

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pcnc_ecommerce/presentation/pages/components/All_categories.dart';
+import 'package:pcnc_ecommerce/presentation/pages/components/tending_products.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pcnc_ecommerce/Data/repository/data_repo.dart';
 import 'package:pcnc_ecommerce/Domain/usecases/login_useCase.dart';
@@ -31,6 +33,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/login', page: () => Login()),
         GetPage(name: '/home', page: () => HomeScreen()),
         GetPage(name: '/signup', page: () => SignupPage()),
+            GetPage(name: '/AllCat', page: () => AllCategories()),
+              GetPage(name: '/trend', page: () => TendingProducts()),
         // Add other pages here
       ],
     );
