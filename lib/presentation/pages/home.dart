@@ -53,6 +53,21 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Builder(
+          builder: (BuildContext context) {
+            return Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: CircleAvatar(
+                backgroundColor: Color.fromARGB(255, 233, 229, 229),
+                child: IconButton(
+                    onPressed: () {
+                      Scaffold.of(context).openDrawer();
+                    },
+                    icon: Image.asset('assets/images/menu.png')),
+              ),
+            );
+          },
+        ),
         title: Center(
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -82,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.account_circle),
-            iconSize: 35,
+            iconSize: 45,
             onPressed: () {},
           ),
         ],
@@ -126,12 +141,16 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: CustomBottomNavigationBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        shape: const CircleBorder(),
-        clipBehavior: Clip.hardEdge,
-        onPressed: () {},
-        backgroundColor: Colors.white,
-        child: const Icon(Icons.shopping_cart_outlined, color: Colors.black),
+      floatingActionButton: Container(
+        margin:
+            EdgeInsets.only(top: 35, left: 15), // Adjust the margin as needed
+        child: FloatingActionButton(
+          shape: const CircleBorder(),
+          clipBehavior: Clip.hardEdge,
+          onPressed: () {},
+          backgroundColor: Colors.white,
+          child: const Icon(Icons.shopping_cart_outlined, color: Colors.black),
+        ),
       ),
     );
   }
