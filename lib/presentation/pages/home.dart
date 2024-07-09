@@ -113,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
             CategoryList(),
             const SizedBox(height: 30),
             ProductList(),
-            const SizedBox(height: 50),
+            const SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.all(15),
               child: TrendingProductsWidget(),
