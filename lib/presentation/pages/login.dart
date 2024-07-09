@@ -18,7 +18,7 @@ class Login extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(right: 120, top: 70),
+              padding: const EdgeInsets.only(right: 154, top: 63),
               child: Container(width: 200, child: _header()),
             ),
             Padding(
@@ -48,27 +48,29 @@ class Login extends StatelessWidget {
       () => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          TextField(
+          TextFormField(
             controller: emailController,
             decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(20),
               hintText: "Username or Email",
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(18),
+                borderRadius: BorderRadius.circular(10),
               ),
-              fillColor: Colors.black.withOpacity(0.1),
+              fillColor: Colors.black.withOpacity(0.03),
               filled: true,
-              prefixIcon: const Icon(Icons.person),
+              prefixIcon: Icon(Icons.person_sharp),
             ),
           ),
-          const SizedBox(height: 35),
+          const SizedBox(height: 31),
           TextField(
             controller: passwordController,
             decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(20),
               hintText: "Password",
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(18),
+                borderRadius: BorderRadius.circular(10),
               ),
-              fillColor: Colors.black.withOpacity(0.1),
+              fillColor: Colors.black.withOpacity(0.03),
               filled: true,
               prefixIcon: const Icon(Icons.lock),
               suffixIcon: IconButton(
@@ -76,7 +78,7 @@ class Login extends StatelessWidget {
                   lcontroller.isObscure.value
                       ? Icons.visibility_off
                       : Icons.visibility,
-                  color: Colors.grey,
+                  color: Color.fromARGB(255, 14, 14, 14),
                 ),
                 onPressed: () {
                   lcontroller.toggleObscure();
@@ -92,7 +94,7 @@ class Login extends StatelessWidget {
               children: [
                 Text(
                   "Forget Password?",
-                  style: TextStyle(color: Colors.red),
+                  style: TextStyle(color: Color(0xFFCD3534)),
                 ),
               ],
             ),
@@ -104,7 +106,8 @@ class Login extends StatelessWidget {
             },
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4)),
+                borderRadius: BorderRadius.circular(4),
+              ),
               padding: EdgeInsets.symmetric(vertical: 14),
               backgroundColor: Colors.orange,
             ),
@@ -123,14 +126,18 @@ class Login extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("Don't have an account?"),
+        const Text("Create An Account"),
         TextButton(
           onPressed: () {
             Get.toNamed('/signup');
           },
           child: const Text(
             "Sign Up",
-            style: TextStyle(color: Colors.red),
+            style: TextStyle(
+              color: Color(0xFFCD3534),
+              decoration: TextDecoration.underline,
+              decorationColor: Color(0xFFCD3534),
+            ),
           ),
         ),
       ],

@@ -11,20 +11,23 @@ class SignupPage extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    
     final SRemoteDataSource remoteDataSource = SRemoteDataSource();
-final SignupRepositoryImpl signupRepository = SignupRepositoryImpl(remoteDataSource: remoteDataSource);
-final SignupUseCase signupUseCase = SignupUseCase(repository: signupRepository);
-   final SignupController signupController = Get.put(SignupController(signupUseCase: signupUseCase));
+    final SignupRepositoryImpl signupRepository =
+        SignupRepositoryImpl(remoteDataSource: remoteDataSource);
+    final SignupUseCase signupUseCase =
+        SignupUseCase(repository: signupRepository);
+    final SignupController signupController =
+        Get.put(SignupController(signupUseCase: signupUseCase));
 
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 25),
           height: MediaQuery.of(context).size.height - 50,
           width: double.infinity,
           child: Column(
@@ -33,7 +36,7 @@ final SignupUseCase signupUseCase = SignupUseCase(repository: signupRepository);
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  const SizedBox(height: 60.0),
+                  const SizedBox(height: 40),
                   _header(),
                   const SizedBox(height: 20),
                 ],
@@ -51,11 +54,11 @@ final SignupUseCase signupUseCase = SignupUseCase(repository: signupRepository);
 
   Widget _header() {
     return Padding(
-      padding: const EdgeInsets.only(right: 120, top: 40),
+      padding: const EdgeInsets.only(right: 154, top: 63),
       child: Container(
         width: 200,
         child: Text(
-          "Create an Account",
+          "Create an account",
           style: TextStyle(
             fontSize: 36,
             color: Colors.black,
@@ -67,62 +70,86 @@ final SignupUseCase signupUseCase = SignupUseCase(repository: signupRepository);
   }
 
   Widget _inputFiled(SignupController signupController) {
-    return Column(
-      children: <Widget>[
-        TextField(
-          controller: nameController,
-          decoration: InputDecoration(
-            hintText: "Username",
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(18),
+    return Obx(
+      () => Column(
+        children: <Widget>[
+          TextField(
+            controller: nameController,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(20),
+              hintText: "Username",
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              fillColor: Colors.black.withOpacity(0.03),
+              filled: true,
+              prefixIcon: const Icon(Icons.person),
             ),
-            fillColor: Colors.black.withOpacity(0.1),
-            filled: true,
-            prefixIcon: const Icon(Icons.person),
           ),
-        ),
-        const SizedBox(height: 20),
-        TextField(
-          controller: emailController,
-          decoration: InputDecoration(
-            hintText: "Email",
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(18),
+          const SizedBox(height: 31),
+          TextField(
+            controller: emailController,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(20),
+              hintText: "Email",
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              fillColor: Colors.black.withOpacity(0.03),
+              filled: true,
+              prefixIcon: const Icon(Icons.email),
             ),
-            fillColor: Colors.black.withOpacity(0.1),
-            filled: true,
-            prefixIcon: const Icon(Icons.email),
           ),
-        ),
-        const SizedBox(height: 20),
-        TextField(
-          controller: passwordController,
-          decoration: InputDecoration(
-            hintText: "Password",
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(18),
+          const SizedBox(height: 31),
+          TextField(
+            controller: passwordController,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(20),
+              hintText: "Password",
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              fillColor: Colors.black.withOpacity(0.03),
+              filled: true,
+              prefixIcon: const Icon(Icons.lock),
+              suffixIcon: IconButton(
+                icon: Icon(signupController.isObscure.value
+                    ? Icons.visibility_off
+                    : Icons.visibility),
+                onPressed: () {
+                  signupController.toggleObscure();
+                },
+              ),
             ),
-            fillColor: Colors.black.withOpacity(0.1),
-            filled: true,
-            prefixIcon: const Icon(Icons.lock),
+            obscureText: signupController.isObscure.value,
           ),
-          obscureText: true,
-        ),
-        const SizedBox(height: 20),
-        TextField(
-          controller: confirmPasswordController,
-          decoration: InputDecoration(
-            hintText: "Confirm Password",
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(18),
+          const SizedBox(height: 31),
+          TextField(
+            controller: confirmPasswordController,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.all(20),
+              hintText: "Confirm Password",
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              fillColor: Colors.black.withOpacity(0.03),
+              filled: true,
+              prefixIcon: const Icon(Icons.lock),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  signupController.isObscure1.value
+                      ? Icons.visibility_off
+                      : Icons.visibility,
+                ),
+                onPressed: () {
+                  signupController.toggleObscure2();
+                },
+              ),
             ),
-            fillColor: Colors.black.withOpacity(0.1),
-            filled: true,
-            prefixIcon: const Icon(Icons.lock),
+           obscureText: signupController.isObscure1.value,
           ),
-          obscureText: true,
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -177,14 +204,18 @@ final SignupUseCase signupUseCase = SignupUseCase(repository: signupRepository);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        const Text("Already have an account?"),
+        const Text("I Already have an account?"),
         TextButton(
           onPressed: () {
             Get.toNamed('/login');
           },
           child: const Text(
             "Login",
-            style: TextStyle(color: Colors.red),
+            style: TextStyle(
+              color: Color(0xFFCD3534),
+              decoration: TextDecoration.underline,
+              decorationColor: Color(0xFFCD3534),
+            ),
           ),
         ),
       ],

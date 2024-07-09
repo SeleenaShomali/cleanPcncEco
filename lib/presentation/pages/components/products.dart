@@ -63,7 +63,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 170, // Adjust width as per your design
+      width: 170,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(6),
@@ -72,12 +72,11 @@ class ProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(4),
-                topRight: Radius.circular(4),
+              borderRadius: const BorderRadius.all(
+              Radius.circular(4)
               ),
               child: AspectRatio(
-                aspectRatio: 1.6, // Adjust aspect ratio as needed
+                aspectRatio: 1.4, // Adjust aspect ratio as needed
                 child: product.images.isNotEmpty
                     ? Image.network(
                         product.images[0],
@@ -141,9 +140,8 @@ class ProductCard extends StatelessWidget {
                         icon: const Icon(Icons.bookmark),
                         onPressed: () {},
                       ),
-                      const Spacer(),
-                      const Spacer(),
-                      const SizedBox(width: 7),
+                      
+                      const SizedBox(width: 21),
                       IconButton(
                         icon: const Icon(Icons.add_shopping_cart),
                         onPressed: () {},

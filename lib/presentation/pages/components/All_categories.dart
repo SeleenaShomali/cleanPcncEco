@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:pcnc_ecommerce/presentation/controller/category_controller.dart';
 
 class AllCategories extends StatefulWidget {
-  const AllCategories({Key? key}) : super(key: key);
+  const AllCategories({super.key});
 
   @override
   State<AllCategories> createState() => _AllCategoriesState();
@@ -18,7 +18,7 @@ class _AllCategoriesState extends State<AllCategories> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title:const  Text(
           'Categories',
           style: TextStyle(color: Colors.red),
         ),
@@ -28,7 +28,7 @@ class _AllCategoriesState extends State<AllCategories> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            DrawerHeader(
+            const DrawerHeader(
               decoration: BoxDecoration(
                 color: Color.fromARGB(255, 124, 124, 125),
               ),
@@ -43,7 +43,7 @@ class _AllCategoriesState extends State<AllCategories> {
               ),
             ),
             ListTile(
-              title: Text('Back to Home'),
+              title: const Text('Back to Home'),
               onTap: () {
                 // Navigate back to home or any action needed
                 Get.offAllNamed('home');
@@ -74,8 +74,8 @@ class _AllCategoriesState extends State<AllCategories> {
                   },
                   decoration: InputDecoration(
                     hintText: 'Search any Category...',
-                    hintStyle: TextStyle(color: Colors.grey),
-                    prefixIcon: Icon(Icons.search),
+                    hintStyle: const TextStyle(color: Colors.grey),
+                    prefixIcon: Icon(Icons.search, color: Colors.grey,),
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(10.0),
@@ -90,9 +90,9 @@ class _AllCategoriesState extends State<AllCategories> {
           Expanded(
             child: Obx(() {
               if (categoryController.isLoading.value) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               } else if (categoryController.isError.value) {
-                return Center(child: Text('Failed to load categories'));
+                return const Center(child: Text('Failed to load categories'));
               } else {
                 // Filter categories based on search text
                 final filteredCategories = categoryController.categories.where(
@@ -101,11 +101,11 @@ class _AllCategoriesState extends State<AllCategories> {
                         .contains(searchText.toLowerCase()));
 
                 if (filteredCategories.isEmpty) {
-                  return Center(child: Text('No categories found'));
+                  return const Center(child: Text('No categories found'));
                 }
 
                 return GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, // Number of columns
                     crossAxisSpacing: 10.0, // Spacing between columns
                     mainAxisSpacing: 10.0, // Spacing between rows
@@ -124,11 +124,9 @@ class _AllCategoriesState extends State<AllCategories> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(8),
-                                topRight: Radius.circular(8),
-                                bottomLeft: Radius.circular(8),
-                                bottomRight: Radius.circular(8),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(8),
+                               
                               ),
                               child: AspectRatio(
                                 aspectRatio: 1.40,
@@ -139,14 +137,14 @@ class _AllCategoriesState extends State<AllCategories> {
                                         fit: BoxFit.cover,
                                         errorBuilder:
                                             (context, error, stackTrace) {
-                                          return Center(
+                                          return const Center(
                                             child: Icon(Icons.error_outline),
                                           );
                                         },
                                       )
                                     : Container(
                                         color: Colors.grey[200],
-                                        child: Center(
+                                        child:const  Center(
                                           child:
                                               Icon(Icons.image_not_supported),
                                         ),
@@ -157,7 +155,7 @@ class _AllCategoriesState extends State<AllCategories> {
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 category.name,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
                                 ),

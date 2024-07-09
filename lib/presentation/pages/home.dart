@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pcnc_ecommerce/Data/repository/logoutRepository.dart';
 import 'package:pcnc_ecommerce/Domain/usecases/logout_usecase.dart';
 import 'package:pcnc_ecommerce/presentation/controller/category_controller.dart';
 import 'package:pcnc_ecommerce/presentation/controller/logout_controller.dart';
 import 'package:pcnc_ecommerce/presentation/controller/product_controller.dart';
 import 'package:pcnc_ecommerce/presentation/pages/components/Bottom_nav.dart';
+import 'package:pcnc_ecommerce/presentation/pages/components/Title.dart';
 import 'package:pcnc_ecommerce/presentation/pages/components/category.dart';
+import 'package:pcnc_ecommerce/presentation/pages/components/homeSearc_bar.dart';
 import 'package:pcnc_ecommerce/presentation/pages/components/products.dart';
 import 'package:pcnc_ecommerce/presentation/pages/components/tending_products.dart';
 import 'package:pcnc_ecommerce/presentation/pages/components/trending_bar.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -31,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
       AuthController(
         logoutUseCase: LogoutUseCase(
           repository: LogoutRepositoryImpl(
-            storage: FlutterSecureStorage(),
+            storage: const FlutterSecureStorage(),
             sharedPreferences: Get.find(),
           ),
         ),
@@ -48,18 +53,35 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 76),
-              child: Container(
-                  height: 50, child: Image.asset("assets/images/name.png")),
-            ),
-          ],
+        title: Center(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 40,
+                width: 45,
+                child: Image.asset('assets/images/name.png'),
+              ),
+              SizedBox(width: 8), // Space between image and text
+              Container(
+                height: 20,
+                child: Text(
+                  "PCNC",
+                  style: GoogleFonts.libreCaslonText(
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.account_circle),
+            icon: const Icon(Icons.account_circle),
             iconSize: 35,
             onPressed: () {},
           ),
@@ -75,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Center(child: Text('Logout')),
               ),
               onTap: () {
-                authController.logout();
+                _showLogoutDialog(context);
               },
             ),
           ],
@@ -85,91 +107,59 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: Container(
-                decoration: BoxDecoration(boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.02),
-                  ),
-                ]),
-                child: SizedBox(
-                  height: 50,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Search any Product...',
-                      hintStyle: TextStyle(color: Colors.grey),
-                      prefixIcon: Icon(Icons.search),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      filled: true,
-                      fillColor: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Text(
-                    'All Categories',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(width: 8),
-                  GestureDetector(
-                    onTap: () {
-                      Get.offAllNamed('/AllCat');
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 150),
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Text(
-                          'See All',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 20),
+            const HomesearchBar(),
+            const title(),
+            const SizedBox(height: 20),
             CategoryList(),
-            SizedBox(height: 30),
-            ProductList(), // Removed Expanded from here
-            SizedBox(height: 20),
+            const SizedBox(height: 30),
+            ProductList(),
+            const SizedBox(height: 50),
             Padding(
               padding: const EdgeInsets.all(15),
               child: TrendingProductsWidget(),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             TendingProducts(),
-            SizedBox(height: 60),
+            const SizedBox(height: 60),
           ],
         ),
       ),
       bottomNavigationBar: CustomBottomNavigationBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        shape: CircleBorder(),
+        shape: const CircleBorder(),
         clipBehavior: Clip.hardEdge,
         onPressed: () {},
         backgroundColor: Colors.white,
-        child: Icon(Icons.shopping_cart, color: Colors.black),
+        child: const Icon(Icons.shopping_cart_outlined, color: Colors.black),
       ),
+    );
+  }
+
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Logout'),
+          content: const Text('Are you sure you want to logout?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+                authController.logout(); // Call the logout method
+              },
+              child: const Text('Logout'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

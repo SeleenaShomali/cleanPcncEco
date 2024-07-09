@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class TrendingProductsWidget extends StatelessWidget {
@@ -7,26 +6,19 @@ class TrendingProductsWidget extends StatelessWidget {
     return Opacity(
       opacity: 1.0, // Adjust the opacity value here if needed
       child: Container(
-        width: 200.0,
+        width: double.infinity,
         height: 60.0,
         decoration: const BoxDecoration(
           color: Color(0xFFF2673A),
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(8.0),
-            topRight: Radius.circular(8.0),
-            bottomLeft: Radius.circular(8.0),
-            bottomRight: Radius.circular(8.0),
-          ),
+          borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 7.0),
-         
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Row(
                 children: [
-                 
                   SizedBox(width: 8.0),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -40,15 +32,14 @@ class TrendingProductsWidget extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 5,),
+                      SizedBox(height: 5),
                       Row(
                         children: [
-                           Icon(
-                    Icons.calendar_month_outlined,
-                    color: Colors.white,
-                  ),
-                  SizedBox(width: 5,),
-                  
+                          Icon(
+                            Icons.calendar_month_outlined,
+                            color: Colors.white,
+                          ),
+                          SizedBox(width: 5),
                           Text(
                             'Last Date 29/02/22',
                             style: TextStyle(
@@ -69,14 +60,11 @@ class TrendingProductsWidget extends StatelessWidget {
                     // Add your onPressed code here!
                   },
                   style: ElevatedButton.styleFrom(
-                    
-                    foregroundColor: Color(0xFFF2673A), backgroundColor: Color((0xFFF2673A)),
+                    foregroundColor: const Color(0xFFF2673A),
+                    backgroundColor: const Color(0xFFF2673A),
                     shape: RoundedRectangleBorder(
-                      side: const BorderSide(
-                        color: Colors.white
-                      ),
+                      side: const BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(8.0),
-                      
                     ),
                   ),
                   child: const Row(
@@ -98,5 +86,4 @@ class TrendingProductsWidget extends StatelessWidget {
         ),
       ),
     );
-  }
-}
+  }}

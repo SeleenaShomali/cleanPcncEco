@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pcnc_ecommerce/presentation/controller/category_controller.dart';
@@ -44,7 +46,7 @@ class CategoryList extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 5),
-                    Text(category.name),
+                    Text(category.name, style: TextStyle(fontSize: 16),),
                   ],
                 ),
               );

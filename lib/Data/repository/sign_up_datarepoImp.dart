@@ -3,18 +3,20 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pcnc_ecommerce/Data/sources/Sign_remoteDataS.dart';
 import 'package:pcnc_ecommerce/Domain/entities/signup_useer.dart';
+
 import 'package:pcnc_ecommerce/Domain/repositries/sign_up_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupRepositoryImpl implements SignupRepository {
   final SRemoteDataSource remoteDataSource;
   final FlutterSecureStorage storage = const FlutterSecureStorage();
+  static const String defaultAvatarUrl = 'https://picsum.photos/800'; // Default avatar URL
 
   SignupRepositoryImpl({required this.remoteDataSource});
 
   @override
   Future<SignupUser> signup(String name, String email, String password) async {
-    final data = await remoteDataSource.signup(name, email, password);
+    final data = await remoteDataSource.signup(name, email, password, defaultAvatarUrl);
 
     final user = SignupUser.fromJson(data);
 

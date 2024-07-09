@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
@@ -12,7 +14,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
       items: [
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.home_rounded,
+            Icons.home_outlined,
             color: Colors.black,
           ),
           label: 'Home',
@@ -37,7 +39,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.settings,
+            Icons.settings_outlined,
             color: Colors.black,
           ),
           label: 'Setting',
