@@ -5,9 +5,9 @@ import 'package:pcnc_ecommerce/presentation/pages/components/tending_products.da
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pcnc_ecommerce/Data/repository/data_repo.dart';
 import 'package:pcnc_ecommerce/Domain/usecases/login_useCase.dart';
-import 'package:pcnc_ecommerce/presentation/pages/home.dart';
-import 'package:pcnc_ecommerce/presentation/pages/login.dart';
-import 'package:pcnc_ecommerce/presentation/pages/sign_up.dart';
+import 'package:pcnc_ecommerce/presentation/pages/view/home.dart';
+import 'package:pcnc_ecommerce/presentation/pages/view/login.dart';
+import 'package:pcnc_ecommerce/presentation/pages/view/sign_up.dart';
 import 'package:pcnc_ecommerce/presentation/controller/login_controller.dart';
 import 'package:pcnc_ecommerce/presentation/pages/splash.dart';
 

@@ -49,47 +49,59 @@ class Login extends StatelessWidget {
       () => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          TextFormField(
-            // validator: (value) {
-            //   return validInput(value!, 'Email');
-            // },
-            controller: emailController,
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.all(20),
-              hintText: "Username or Email",
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+          Form(
+          key: key,
+            autovalidateMode: AutovalidateMode.always,
+            child: TextFormField(
+              validator: (value) {
+                return validInput(value!, 'Email');
+              },
+              controller: emailController,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(20),
+                hintText: "Username or Email",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                fillColor: Colors.black.withOpacity(0.03),
+                filled: true,
+                prefixIcon: Icon(Icons.person_sharp),
               ),
-              fillColor: Colors.black.withOpacity(0.03),
-              filled: true,
-              prefixIcon: Icon(Icons.person_sharp),
             ),
           ),
           const SizedBox(height: 31),
-          TextField(
-            controller: passwordController,
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.all(20),
-              hintText: "Password",
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              fillColor: Colors.black.withOpacity(0.03),
-              filled: true,
-              prefixIcon: const Icon(Icons.lock),
-              suffixIcon: IconButton(
-                icon: Icon(
-                  lcontroller.isObscure.value
-                      ? Icons.visibility_off
-                      : Icons.visibility,
-                  color: Color.fromARGB(255, 14, 14, 14),
+          Form(
+            key: key,
+            autovalidateMode:AutovalidateMode.always ,
+            child: TextFormField(
+              validator: (value) {
+               
+                return validInput(value!, 'password');
+              },
+              controller: passwordController,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.all(20),
+                hintText: "Password",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                onPressed: () {
-                  lcontroller.toggleObscure();
-                },
+                fillColor: Colors.black.withOpacity(0.03),
+                filled: true,
+                prefixIcon: const Icon(Icons.lock),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    lcontroller.isObscure.value
+                        ? Icons.visibility_off
+                        : Icons.visibility,
+                    color: Color.fromARGB(255, 14, 14, 14),
+                  ),
+                  onPressed: () {
+                    lcontroller.toggleObscure();
+                  },
+                ),
               ),
+              obscureText: lcontroller.isObscure.value,
             ),
-            obscureText: lcontroller.isObscure.value,
           ),
           Padding(
             padding: const EdgeInsets.all(10),
