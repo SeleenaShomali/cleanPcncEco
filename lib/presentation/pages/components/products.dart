@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:pcnc_ecommerce/presentation/controller/product_controller.dart';
 import 'package:pcnc_ecommerce/domain/entities/productmodel.dart';
@@ -26,9 +27,9 @@ class ProductList extends StatelessWidget {
           physics: NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 0.72, // Adjust the aspect ratio as needed
+            childAspectRatio: 0.67, // Adjust the aspect ratio as needed
             crossAxisSpacing: 8.0, // Spacing between columns
-            mainAxisSpacing: 8.0, // Spacing between rows
+            mainAxisSpacing: 20, // Spacing between rows
           ),
           itemCount: productController.products.length,
           itemBuilder: (BuildContext context, int index) {
@@ -49,7 +50,9 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 170,
+      
       child: Card(
+        color: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(6),
         ),
@@ -59,7 +62,7 @@ class ProductCard extends StatelessWidget {
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(4)),
               child: AspectRatio(
-                aspectRatio: 1.4, // Adjust aspect ratio as needed
+                aspectRatio: 1.37, // Adjust aspect ratio as needed
                 child: product.images.isNotEmpty
                     ? Image.network(
                         product.images[0],
@@ -87,19 +90,26 @@ class ProductCard extends StatelessWidget {
                     product.title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    style: GoogleFonts.montserrat(
+                               textStyle: const  TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 12, // Adjusted font size
+                      fontSize: 12,
+                    height: 1.5
                     ),
+                    )
+           
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 2),
                   Text(
                     product.description,
                     maxLines: 2,
+                    
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 10, // Adjusted font size
-                      color: Colors.grey[600],
+                      color: Colors.black,
+                      letterSpacing: 0.4,
+                      height: 2
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -112,7 +122,7 @@ class ProductCard extends StatelessWidget {
                     ),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       IconButton(
@@ -123,7 +133,7 @@ class ProductCard extends StatelessWidget {
                         icon: const Icon(Icons.bookmark),
                         onPressed: () {},
                       ),
-                      const SizedBox(width: 24),
+                      const SizedBox(width: 32),
                       IconButton(
                         icon: const Icon(Icons.add_shopping_cart),
                         onPressed: () {},

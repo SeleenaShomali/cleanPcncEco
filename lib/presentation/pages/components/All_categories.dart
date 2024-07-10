@@ -117,6 +117,7 @@ class _AllCategoriesState extends State<AllCategories> {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Card(
+                        color: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(6),
                         ),

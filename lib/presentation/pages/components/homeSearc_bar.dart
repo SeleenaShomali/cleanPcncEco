@@ -19,7 +19,7 @@ class HomesearchBar extends StatelessWidget {
                     decoration: InputDecoration(
                       hintText: 'Search any Product...',
                       hintStyle: TextStyle(color: Colors.grey),
-                      prefixIcon: Icon(Icons.search),
+                      prefixIcon: Icon(Icons.search, color: Colors.grey,),
                       border: OutlineInputBorder(
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.circular(10.0),

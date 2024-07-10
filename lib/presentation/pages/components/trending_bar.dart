@@ -7,7 +7,7 @@ class TrendingProductsWidget extends StatelessWidget {
       opacity: 1.0, // Adjust the opacity value here if needed
       child: Container(
         width: double.infinity,
-        height: 60.0,
+        height: 65.0,
         decoration: const BoxDecoration(
           color: Color(0xFFF2673A),
           borderRadius: BorderRadius.all(Radius.circular(8.0)),

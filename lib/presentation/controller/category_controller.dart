@@ -18,7 +18,8 @@ class CategoryController extends GetxController {
   Future<void> fetchCategories() async {
     isLoading.value = true; // Use .value
     try {
-      categories.value = await _repository.fetchCategories();
+      List<Category> fetchedCategories =  categories.value = await _repository.fetchCategories();
+     categories.value = fetchedCategories;
       isError.value = false; // Use .value
     } catch (e) {
       isError.value = true; // Use .value
@@ -27,3 +28,6 @@ class CategoryController extends GetxController {
     }
   }
 }
+//  List<Product> fetchedProducts =
+//           (await _repository.fetchProducts()).cast<Product>();
+//       products.value = fetchedProducts.take(4).toList();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:pcnc_ecommerce/presentation/controller/product_controller.dart';
 import 'package:pcnc_ecommerce/domain/entities/productmodel.dart';
@@ -47,6 +48,7 @@ class TendingProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(6),
       ),
@@ -57,13 +59,11 @@ class TendingProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  topRight: Radius.circular(8),
-                  bottomLeft: Radius.circular(8),
-                  bottomRight: Radius.circular(8)),
+              borderRadius: const BorderRadius.all(
+                  Radius.circular(8),
+              ),
               child: AspectRatio(
-                aspectRatio: 1.55, // Adjusted aspect ratio
+                aspectRatio: 1.4, // Adjusted aspect ratio
                 child: product.images.isNotEmpty
                     ? Image.network(
                         product.images[0],
@@ -87,31 +87,38 @@ class TendingProductCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    product.title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12, // Adjusted font size
-                    ),
-                  ),
+                  // Text(
+                  //   product.title,
+                  //   maxLines: 5,
+                  //   overflow: TextOverflow.ellipsis,
+                  //   style: GoogleFonts.montserrat(
+                  //     textStyle: const TextStyle(
+                  //     fontWeight: FontWeight.bold,
+                  //     fontSize: 12, // Adjusted font size
+                  //   ),
+                  //   ),
+                    
+                  // ),
                   const SizedBox(height: 4),
                   Text(
                     product.description,
-                    maxLines: 2,
+                    maxLines: 3,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 10, // Adjusted font size
-                      color: Colors.grey[600],
+                    style:GoogleFonts.montserrat(
+                      textStyle:   TextStyle(
+                      fontSize: 12, // Adjusted font size
+                      color: Colors.black,
+height: 1.4,fontWeight: FontWeight.w400
                     ),
+                    ),
+                    
                   ),
                   const SizedBox(height: 4),
                   Text(
                     '\$${product.price.toStringAsFixed(2)}',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 16, // Adjusted font size
+                      fontSize: 12, // Adjusted font size
                       color: Colors.black,
                     ),
                   ),

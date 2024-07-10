@@ -58,7 +58,8 @@ class _HomeScreenState extends State<HomeScreen> {
             return Padding(
               padding: const EdgeInsets.only(left: 16),
               child: CircleAvatar(
-                backgroundColor: Color.fromARGB(255, 233, 229, 229),
+                backgroundColor: Color.fromARGB(255, 246, 242, 242),
+                
                 child: IconButton(
                     onPressed: () {
                       Scaffold.of(context).openDrawer();
@@ -74,10 +75,10 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               SizedBox(
                 height: 40,
-                width: 45,
+                width: 40,
                 child: Image.asset('assets/images/name.png'),
               ),
-              SizedBox(width: 8), // Space between image and text
+  
               Container(
                 height: 20,
                 child: Text(
@@ -153,32 +154,55 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-  }
-
-  void _showLogoutDialog(BuildContext context) {
+  }void _showLogoutDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Logout'),
-          content: const Text('Are you sure you want to logout?'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-              },
-              child: const Text('Cancel'),
+        return Obx(() {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-                authController.logout(); // Call the logout method
-              },
-              child: const Text('Logout'),
-            ),
-          ],
-        );
+            title: const Text('Logout'),
+            content: authController.isLoading.value
+                ? Container(
+                    height: 100, // Adjust height as needed
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        CircularProgressIndicator(),
+                        SizedBox(height: 20),
+                        Text('Logging out...'),
+                      ],
+                    ),
+                  )
+                : const Text('Are you sure you want to logout?'),
+            actions: <Widget>[
+              if (!authController.isLoading.value)
+                TextButton(
+                  onPressed: () {
+                    if (Navigator.of(context).canPop()) {
+                      Navigator.of(context).pop(); // Close the dialog
+                    }
+                  },
+                  child: const Text('Cancel'),
+                ),
+              if (!authController.isLoading.value)
+                TextButton(
+                  onPressed: () async {
+                    authController.isLoading.value = true;
+                    await authController.logout(); // Call the logout method
+                    if (Navigator.of(context).canPop()) {
+                      Navigator.of(context).pop(); // Close the dialog after logout
+                    }
+                  },
+                  child: const Text('Logout'),
+                ),
+            ],
+          );
+        });
       },
     );
   }
+
 }

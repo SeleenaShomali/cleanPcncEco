@@ -24,17 +24,20 @@ class _titleState extends State<title> {
                     onTap: () {
                       Get.offAllNamed('/AllCat');
                     },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 6, horizontal: 14),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text(
-                        'See All',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 9),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 6, horizontal: 14),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          'See All',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                     ),
