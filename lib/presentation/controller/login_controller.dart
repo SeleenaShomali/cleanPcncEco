@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 import 'package:pcnc_ecommerce/Domain/entities/user.dart';
 import 'package:pcnc_ecommerce/Domain/usecases/login_useCase.dart';
@@ -8,9 +7,9 @@ import 'dart:convert';
 class LoginController extends GetxController {
   var isLoggedIn = false.obs;
   var user = User(
-    accessToken: 'accessToken',
-    refreshToken: 'refreshToken',
-    email: 'email',
+    accessToken: '',
+    refreshToken: '',
+    email: '',
   ).obs;
 
   final LoginUseCase loginUseCase;
@@ -20,37 +19,36 @@ class LoginController extends GetxController {
 
   LoginController({required this.loginUseCase});
 
+  // Future<void> login(String email, String password) async {
+  //   if (_validateEmail(email) && _validatePassword(password)) {
+  //     final result = await loginUseCase.login(email, password);
+  //     result.fold(
+  //       (failure) {
+  //         Get.snackbar('Error', failure.message);
+  //       },
+  //       (user) {
+  //         this.user.value = user;
+  //         isLoggedIn.value = true;
+  //         _saveUserState(user);
+  //         Get.offAllNamed('/home');
+  //       },
+  //     );
+  //   } else {
+  //     Get.snackbar('Error', 'Invalid email or password');
+  //   }
+  // }
   Future<void> login(String email, String password) async {
-    if (_validateEmail(email) && _validatePassword(password)) {
-      final result = await loginUseCase.login(email, password);
-      result.fold(
-        (failure) {
-          Get.snackbar('Error', failure.message);
-        },
-        (user) {
-          this.user.value = user;
-          isLoggedIn.value = true;
-          _saveUserState(user);
-          Get.offAllNamed('/home');
-        },
-      );
-    } else {
-      Get.snackbar('Error', 'Invalid email or password');
-    }
+    final result = await loginUseCase.login(email, password);
+    result.fold(
+      (failure) => {Get.snackbar('Error', failure.message)},
+      (user) => {
+        this.user.value = user,
+        Get.snackbar("Success", 'Login Successful'),
+        Get.offAllNamed('/home')
+      }
+    );
   }
 
-  bool _validateEmail(String email) {
-    return GetUtils.isEmail(email);
-  }
-
-  bool _validatePassword(String password) {
-    return password.isNotEmpty && password.length >= 6;
-  }
-
-  Future<void> _saveUserState(User user) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('user', json.encode(user.toJson()));
-  }
 
   Future<void> initializeLoginState() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

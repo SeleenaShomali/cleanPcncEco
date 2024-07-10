@@ -19,7 +19,7 @@ class CategoryController extends GetxController {
     isLoading.value = true; // Use .value
     try {
       List<Category> fetchedCategories =  categories.value = await _repository.fetchCategories();
-     categories.value = fetchedCategories;
+     categories.value = fetchedCategories.take(10).toList();
       isError.value = false; // Use .value
     } catch (e) {
       isError.value = true; // Use .value

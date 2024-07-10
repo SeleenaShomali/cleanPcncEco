@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:pcnc_ecommerce/presentation/controller/product_controller.dart';
 import 'package:pcnc_ecommerce/domain/entities/productmodel.dart';
+import 'package:pcnc_ecommerce/presentation/pages/components/FullImage.dart';
 
 class TendingProducts extends StatelessWidget {
   final ProductController productController = Get.find<ProductController>();
@@ -58,28 +59,40 @@ class TendingProductCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.all(
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            FullScreenImage(imageUrl: product.images[0])));
+              },
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(
                   Radius.circular(8),
-              ),
-              child: AspectRatio(
-                aspectRatio: 1.4, // Adjusted aspect ratio
-                child: product.images.isNotEmpty
-                    ? Image.network(
-                        product.images[0],
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return const Center(
-                            child: Icon(Icons.error_outline),
-                          );
-                        },
+                ),
+                child: AspectRatio(
+                  aspectRatio: 1.4, // Adjusted aspect ratio
+                  child: product.images.isNotEmpty
+                      ? Hero(
+                        tag: product.images[0],
+                        child: Image.network(
+                            product.images[0],
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Center(
+                                child: Icon(Icons.error_outline),
+                              );
+                            },
+                          ),
                       )
-                    : Container(
-                        color: Colors.grey[200],
-                        child: const Center(
-                          child: Icon(Icons.image_not_supported),
+                      : Container(
+                          color: Colors.grey[200],
+                          child: const Center(
+                            child: Icon(Icons.image_not_supported),
+                          ),
                         ),
-                      ),
+                ),
               ),
             ),
             Padding(
@@ -97,21 +110,20 @@ class TendingProductCard extends StatelessWidget {
                   //     fontSize: 12, // Adjusted font size
                   //   ),
                   //   ),
-                    
+
                   // ),
                   const SizedBox(height: 4),
                   Text(
                     product.description,
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
-                    style:GoogleFonts.montserrat(
-                      textStyle:   TextStyle(
-                      fontSize: 12, // Adjusted font size
-                      color: Colors.black,
-height: 1.4,fontWeight: FontWeight.w400
+                    style: GoogleFonts.montserrat(
+                      textStyle: TextStyle(
+                          fontSize: 12, // Adjusted font size
+                          color: Colors.black,
+                          height: 1.4,
+                          fontWeight: FontWeight.w400),
                     ),
-                    ),
-                    
                   ),
                   const SizedBox(height: 4),
                   Text(

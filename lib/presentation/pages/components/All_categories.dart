@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pcnc_ecommerce/presentation/controller/category_controller.dart';
+import 'package:pcnc_ecommerce/presentation/pages/components/FullImage.dart';
 
 class AllCategories extends StatefulWidget {
   const AllCategories({super.key});
@@ -18,7 +19,7 @@ class _AllCategoriesState extends State<AllCategories> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:const  Text(
+        title: const Text(
           'Categories',
           style: TextStyle(color: Colors.red),
         ),
@@ -75,7 +76,10 @@ class _AllCategoriesState extends State<AllCategories> {
                   decoration: InputDecoration(
                     hintText: 'Search any Category...',
                     hintStyle: const TextStyle(color: Colors.grey),
-                    prefixIcon: Icon(Icons.search, color: Colors.grey,),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Colors.grey,
+                    ),
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,
                       borderRadius: BorderRadius.circular(10.0),
@@ -124,32 +128,43 @@ class _AllCategoriesState extends State<AllCategories> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ClipRRect(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(8),
-                               
-                              ),
-                              child: AspectRatio(
-                                aspectRatio: 1.40,
-                                child: category.image != null &&
-                                        category.image.isNotEmpty
-                                    ? Image.network(
-                                        category.image,
-                                        fit: BoxFit.cover,
-                                        errorBuilder:
-                                            (context, error, stackTrace) {
-                                          return const Center(
-                                            child: Icon(Icons.error_outline),
-                                          );
-                                        },
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => FullScreenImage(
+                                            imageUrl: category.image)));
+                              },
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(8),
+                                ),
+                                child: AspectRatio(
+                                  aspectRatio: 1.40,
+                                  child: category.image != null &&
+                                          category.image.isNotEmpty
+                                      ? Hero(
+                                        tag: category.image,
+                                        child: Image.network(
+                                            category.image,
+                                            fit: BoxFit.cover,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return const Center(
+                                                child: Icon(Icons.error_outline),
+                                              );
+                                            },
+                                          ),
                                       )
-                                    : Container(
-                                        color: Colors.grey[200],
-                                        child:const  Center(
-                                          child:
-                                              Icon(Icons.image_not_supported),
+                                      : Container(
+                                          color: Colors.grey[200],
+                                          child: const Center(
+                                            child:
+                                                Icon(Icons.image_not_supported),
+                                          ),
                                         ),
-                                      ),
+                                ),
                               ),
                             ),
                             Padding(
