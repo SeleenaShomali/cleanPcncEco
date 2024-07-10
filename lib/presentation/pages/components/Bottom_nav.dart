@@ -31,6 +31,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
           label: '', // No label for middle item
         ),
         BottomNavigationBarItem(
+          icon: Icon(null),
+          label: '', // No label for middle item
+        ),
+        BottomNavigationBarItem(
           icon: Icon(
             Icons.search,
             color: Colors.black,
@@ -44,9 +48,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           ),
           label: 'Setting',
         ),
-        
       ],
-      
     );
   }
 }

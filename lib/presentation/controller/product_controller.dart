@@ -20,7 +20,8 @@ class ProductController extends GetxController {
   Future<void> fetchProducts() async {
     isLoading.value = true;
     try {
-      List<Product> fetchedProducts = (await _repository.fetchProducts()).cast<Product>();
+      List<Product> fetchedProducts =
+          (await _repository.fetchProducts()).cast<Product>();
       products.value = fetchedProducts.take(4).toList();
       isError.value = false;
     } catch (e) {

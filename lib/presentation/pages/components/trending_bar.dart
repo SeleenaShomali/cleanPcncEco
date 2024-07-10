@@ -86,4 +86,5 @@ class TrendingProductsWidget extends StatelessWidget {
         ),
       ),
     );
-  }}
+  }
+}
