@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pcnc_ecommerce/core/function/Validation_input.dart';
 import 'package:pcnc_ecommerce/presentation/controller/login_controller.dart';
 
 class Login extends StatelessWidget {
@@ -49,6 +50,9 @@ class Login extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TextFormField(
+            // validator: (value) {
+            //   return validInput(value!, 'Email');
+            // },
             controller: emailController,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.all(20),
