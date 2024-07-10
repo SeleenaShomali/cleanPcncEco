@@ -8,6 +8,7 @@ class Login extends StatelessWidget {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Login({super.key});
 
@@ -24,7 +25,7 @@ class Login extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 40),
-              child: _inputFiled(),
+              child: _inputFiled(context),
             ),
             _signUp(),
           ],
@@ -44,15 +45,15 @@ class Login extends StatelessWidget {
     );
   }
 
-  Widget _inputFiled() {
+  Widget _inputFiled(BuildContext context) {
     return Obx(
-      () => Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Form(
-          key: key,
-            autovalidateMode: AutovalidateMode.always,
-            child: TextFormField(
+      () => Form(
+        key: _formKey,
+        autovalidateMode: AutovalidateMode.always,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            TextFormField(
               validator: (value) {
                 return validInput(value!, 'Email');
               },
@@ -68,15 +69,10 @@ class Login extends StatelessWidget {
                 prefixIcon: Icon(Icons.person_sharp),
               ),
             ),
-          ),
-          const SizedBox(height: 31),
-          Form(
-            key: key,
-            autovalidateMode:AutovalidateMode.always ,
-            child: TextFormField(
+            const SizedBox(height: 31),
+            TextFormField(
               validator: (value) {
-               
-                return validInput(value!, 'password');
+                return validInput(value!, 'Password');
               },
               controller: passwordController,
               decoration: InputDecoration(
@@ -102,38 +98,50 @@ class Login extends StatelessWidget {
               ),
               obscureText: lcontroller.isObscure.value,
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  "Forget Password?",
-                  style: TextStyle(color: Color(0xFFCD3534)),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 35),
-          ElevatedButton(
-            onPressed: () {
-              lcontroller.login(emailController.text, passwordController.text);
-            },
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    "Forget Password?",
+                    style: TextStyle(color: Color(0xFFCD3534)),
+                  ),
+                ],
               ),
-              padding: EdgeInsets.symmetric(vertical: 14),
-              backgroundColor: Colors.orange,
             ),
-            child: const Text(
-              "Login",
-              style: TextStyle(fontSize: 20, color: Colors.white),
+            const SizedBox(height: 35),
+            ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  lcontroller.login(
+                      emailController.text, passwordController.text);
+                } else {
+                  // Show Snackbar if form is invalid
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                          'Please fix the errors in red before submitting.'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 14),
+                backgroundColor: Colors.orange,
+              ),
+              child: const Text(
+                "Login",
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
             ),
-          ),
-          const SizedBox(height: 20),
-        ],
+            const SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }
