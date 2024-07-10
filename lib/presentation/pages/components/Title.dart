@@ -25,7 +25,7 @@ class _titleState extends State<title> {
                       Get.offAllNamed('/AllCat');
                     },
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                      padding: EdgeInsets.symmetric(vertical: 6, horizontal: 14),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),

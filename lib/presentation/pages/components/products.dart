@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,7 +9,7 @@ import 'package:pcnc_ecommerce/domain/entities/productmodel.dart';
 class ProductList extends StatelessWidget {
   final ProductController productController = Get.find<ProductController>();
 
-  ProductList({Key? key}) : super(key: key);
+  ProductList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,36 +21,19 @@ class ProductList extends StatelessWidget {
       } else if (productController.products.isEmpty) {
         return const Center(child: Text('No products available'));
       } else {
-        return SizedBox(
-          height: 241, // Adjust height as needed
-          child: ListView.builder(
-            itemCount: (productController.products.length / 2).ceil(),
-            itemBuilder: (context, index) {
-              final firstCardIndex = index * 2;
-              final secondCardIndex = firstCardIndex + 1;
-
-              return Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ProductCard(
-                          product: productController.products[firstCardIndex]),
-                    ),
-                  ),
-                  if (secondCardIndex < productController.products.length)
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ProductCard(
-                            product:
-                                productController.products[secondCardIndex]),
-                      ),
-                    ),
-                ],
-              );
-            },
+        return GridView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 0.72, // Adjust the aspect ratio as needed
+            crossAxisSpacing: 8.0, // Spacing between columns
+            mainAxisSpacing: 8.0, // Spacing between rows
           ),
+          itemCount: productController.products.length,
+          itemBuilder: (BuildContext context, int index) {
+            return ProductCard(product: productController.products[index]);
+          },
         );
       }
     });
@@ -72,9 +57,7 @@ class ProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.all(
-              Radius.circular(4)
-              ),
+              borderRadius: const BorderRadius.all(Radius.circular(4)),
               child: AspectRatio(
                 aspectRatio: 1.4, // Adjust aspect ratio as needed
                 child: product.images.isNotEmpty
@@ -140,8 +123,7 @@ class ProductCard extends StatelessWidget {
                         icon: const Icon(Icons.bookmark),
                         onPressed: () {},
                       ),
-                      
-                      const SizedBox(width: 21),
+                      const SizedBox(width: 24),
                       IconButton(
                         icon: const Icon(Icons.add_shopping_cart),
                         onPressed: () {},
