@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:pcnc_ecommerce/presentation/controller/product_controller.dart';
 import 'package:pcnc_ecommerce/domain/entities/productmodel.dart';
 import 'package:pcnc_ecommerce/presentation/pages/components/FullImage.dart';
@@ -34,7 +33,7 @@ class ProductList extends StatelessWidget {
           ),
           itemCount: productController.products.length,
           itemBuilder: (BuildContext context, int index) {
-            return ProductCard(product: productController.products[index]);
+            return ProductCard(product: productController.products[index], tagIndex: index);
           },
         );
       }
@@ -44,8 +43,9 @@ class ProductList extends StatelessWidget {
 
 class ProductCard extends StatelessWidget {
   final Product product;
+  final int tagIndex;
 
-  const ProductCard({Key? key, required this.product}) : super(key: key);
+  const ProductCard({Key? key, required this.product, required this.tagIndex}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ class ProductCard extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => FullScreenImage(imageUrl: product.images[0]),
+                    builder: (context) => FullScreenImage(imageUrl: product.images.isNotEmpty ? product.images[0] : ''),
                   ),
                 );
               },
@@ -74,7 +74,7 @@ class ProductCard extends StatelessWidget {
                   aspectRatio: 1.37, // Adjust aspect ratio as needed
                   child: product.images.isNotEmpty
                       ? Hero(
-                          tag: product.images[1],
+                          tag: 'hero-tag-$tagIndex',
                           child: Image.network(
                             product.images[0],
                             fit: BoxFit.cover,

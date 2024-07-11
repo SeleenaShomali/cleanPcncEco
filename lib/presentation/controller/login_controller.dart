@@ -19,24 +19,6 @@ class LoginController extends GetxController {
 
   LoginController({required this.loginUseCase});
 
-  // Future<void> login(String email, String password) async {
-  //   if (_validateEmail(email) && _validatePassword(password)) {
-  //     final result = await loginUseCase.login(email, password);
-  //     result.fold(
-  //       (failure) {
-  //         Get.snackbar('Error', failure.message);
-  //       },
-  //       (user) {
-  //         this.user.value = user;
-  //         isLoggedIn.value = true;
-  //         _saveUserState(user);
-  //         Get.offAllNamed('/home');
-  //       },
-  //     );
-  //   } else {
-  //     Get.snackbar('Error', 'Invalid email or password');
-  //   }
-  // }
   Future<void> login(String email, String password) async {
     final result = await loginUseCase.login(email, password);
     result.fold(
@@ -44,24 +26,33 @@ class LoginController extends GetxController {
       (user) => {
         this.user.value = user,
         Get.snackbar("Success", 'Login Successful'),
+        _saveUserState(user),
         Get.offAllNamed('/home')
       }
     );
   }
 
-
   Future<void> initializeLoginState() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.containsKey('user')) {
-      var userData = json.decode(prefs.getString('user')!);
-      user.value = User.fromJson(userData);
-      isLoggedIn.value = true;
+      var userData = prefs.getString('user');
+      if (userData != null) {
+        var jsonUserData = json.decode(userData);
+        user.value = User.fromJson(jsonUserData);
+        isLoggedIn.value = true;
+      }
     }
   }
 
   // Method to toggle password visibility
   void toggleObscure() {
     isObscure.value = !isObscure.value;
+  }
+
+  Future<void> _saveUserState(User user) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String userData = json.encode(user.toJson());
+    await prefs.setString('user', userData);
   }
 
   @override

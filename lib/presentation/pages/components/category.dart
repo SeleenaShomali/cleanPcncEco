@@ -27,7 +27,7 @@ class CategoryList extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
-                          context,MaterialPageRoute(builder: (context)=> FullScreenImage(imageUrl: category.image))
+                          context,MaterialPageRoute(builder: (context)=> FullScreenImage(imageUrl: category.image.isNotEmpty ? category.image: ''))
                         );
                       },
                       child: CircleAvatar(
@@ -37,7 +37,7 @@ class CategoryList extends StatelessWidget {
                           child: category.image != null &&
                                   category.image.isNotEmpty
                               ?Hero (
-                                tag: category.image,
+                                tag: category.id,
                                 child: Image.network(
                                     category.image,
                                     width: 60,

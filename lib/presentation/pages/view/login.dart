@@ -17,17 +17,21 @@ class Login extends StatelessWidget {
     return Scaffold(
       body: Container(
         margin: const EdgeInsets.all(24),
-        child: Column(
+        child: ListView(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 154, top: 63),
-              child: Container(width: 200, child: _header()),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 154, top: 63),
+                  child: Container(width: 200, child: _header()),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 40),
+                  child: _inputFiled(context),
+                ),
+                _signUp(),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 40),
-              child: _inputFiled(context),
-            ),
-            _signUp(),
           ],
         ),
       ),
@@ -113,19 +117,19 @@ class Login extends StatelessWidget {
             const SizedBox(height: 35),
             ElevatedButton(
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
+                // if (_formKey.currentState!.validate()) {
                   lcontroller.login(
                       emailController.text, passwordController.text);
-                } else {
-                  // Show Snackbar if form is invalid
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                          'Please fix the errors in red before submitting.'),
-                      backgroundColor: Colors.red,
-                    ),
-                  );
-                }
+                // } else {
+                //   // Show Snackbar if form is invalid
+                //   ScaffoldMessenger.of(context).showSnackBar(
+                //     SnackBar(
+                //       content: Text(
+                //           'Please fix the errors in red before submitting.'),
+                //       backgroundColor: Colors.red,
+                //     ),
+                //   );
+                // }
               },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
