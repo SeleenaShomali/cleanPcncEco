@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pcnc_ecommerce/Data/repository/data_repo.dart';
+import 'package:pcnc_ecommerce/Data/repository/sign_up_datarepoImp.dart';
+import 'package:pcnc_ecommerce/Data/sources/Sign_remoteDataS.dart';
+import 'package:pcnc_ecommerce/Domain/repositries/sign_up_repo.dart';
 import 'package:pcnc_ecommerce/Domain/usecases/login_useCase.dart';
+import 'package:pcnc_ecommerce/Domain/usecases/sign_up_usecase.dart';
 import 'package:pcnc_ecommerce/presentation/controller/login_controller.dart';
+import 'package:pcnc_ecommerce/presentation/controller/sign_up_controller.dart';
 import 'package:pcnc_ecommerce/presentation/pages/components/all_categories.dart';
 import 'package:pcnc_ecommerce/presentation/pages/components/tending_products.dart';
 
@@ -21,9 +26,12 @@ void main() async {
   
   // Initialize LoginController and dependencies
   final loginRepository = LoginRepositoryImpl();
+  final remoteDataSource = SRemoteDataSource();
+  final SignupRepository = SignupRepositoryImpl(remoteDataSource: remoteDataSource);
   final loginUseCase = LoginUseCase(repository: loginRepository);
+  final signupUseCase = SignupUseCase(repository: SignupRepository);
   Get.put(LoginController(loginUseCase: loginUseCase));
-
+Get.put(SignupController(signupUseCase: signupUseCase));
   runApp(MyApp());
 }
 
