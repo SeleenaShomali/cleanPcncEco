@@ -40,6 +40,7 @@ dependencies:
   flutter_secure_storage: ^9.2.2
   shared_preferences: ^2.2.3
   google_fonts: ^6.2.1
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +68,9 @@ flutter:
     - assets/images/name.png
     - assets/images/pcncLogo.png
     - assets/images/menu.png
+    - assets/images/Vector.svg
+    - assets/images/Vector1.svg
+    - assets/images/Bookmark.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -110,22 +110,23 @@ class Login extends StatelessWidget {
                   );
                // }
               },
-              // ElevatedButton(
-             // onPressed: () {
-                // if (_formKey.currentState!.validate()) {
-              //    lcontroller.login(
-              //        emailController.text, passwordController.text);
-                // } else {
-                //   // Show Snackbar if form is invalid
-                //   ScaffoldMessenger.of(context).showSnackBar(
-                //     SnackBar(
-                //       content: Text(
-                //           'Please fix the errors in red before submitting.'),
-                //       backgroundColor: Colors.red,
-                //     ),
-                //   );
-                // }
+            //   ElevatedButton(
+            //  onPressed: () {
+            //     if (_formKey.currentState!.validate()) {
+            //      lcontroller.login(
+            //          emailController.text, passwordController.text);
+            //     } else {
+            //       // Show Snackbar if form is invalid
+            //       ScaffoldMessenger.of(context).showSnackBar(
+            //         SnackBar(
+            //           content: Text(
+            //               'Please fix the errors in red before submitting.'),
+            //           backgroundColor: Colors.red,
+            //         ),
+            //       );
+            //     }
             //  },
+              
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(4),

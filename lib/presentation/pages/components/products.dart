@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pcnc_ecommerce/presentation/controller/product_controller.dart';
@@ -27,13 +28,14 @@ class ProductList extends StatelessWidget {
           physics: NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 0.67, // Adjust the aspect ratio as needed
+            childAspectRatio: 0.71, // Adjust the aspect ratio as needed
             crossAxisSpacing: 8.0, // Spacing between columns
             mainAxisSpacing: 20, // Spacing between rows
           ),
           itemCount: productController.products.length,
           itemBuilder: (BuildContext context, int index) {
-            return ProductCard(product: productController.products[index], tagIndex: index);
+            return ProductCard(
+                product: productController.products[index], tagIndex: index);
           },
         );
       }
@@ -45,7 +47,8 @@ class ProductCard extends StatelessWidget {
   final Product product;
   final int tagIndex;
 
-  const ProductCard({Key? key, required this.product, required this.tagIndex}) : super(key: key);
+  const ProductCard({Key? key, required this.product, required this.tagIndex})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,14 +67,16 @@ class ProductCard extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => FullScreenImage(imageUrl: product.images.isNotEmpty ? product.images[0] : ''),
+                    builder: (context) => FullScreenImage(
+                        imageUrl:
+                            product.images.isNotEmpty ? product.images[0] : ''),
                   ),
                 );
               },
               child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(4)),
                 child: AspectRatio(
-                  aspectRatio: 1.37, // Adjust aspect ratio as needed
+                  aspectRatio: 1.31, // Adjust aspect ratio as needed
                   child: product.images.isNotEmpty
                       ? Hero(
                           tag: 'hero-tag-$tagIndex',
@@ -128,25 +133,32 @@ class ProductCard extends StatelessWidget {
                     '\$${product.price.toStringAsFixed(2)}',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 16, // Adjusted font size
+                      fontSize: 12, // Adjusted font size
                       color: Colors.black,
                     ),
                   ),
+                  SizedBox(height: 5,),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      IconButton(
-                        icon: const Icon(Icons.favorite_border),
-                        onPressed: () {},
+                      SvgPicture.asset(
+                        'assets/images/Vector.svg',
+                        height: 20,
+                        width: 20,
                       ),
-                      IconButton(
-                        icon: const Icon(Icons.bookmark),
-                        onPressed: () {},
-                      ),
-                      const SizedBox(width: 24),
-                      IconButton(
-                        icon: const Icon(Icons.add_shopping_cart),
-                        onPressed: () {},
+                      SizedBox(width: 10,),
+                      // SvgPicture.asset(
+                      //   'assets/images/Vector1.svg',
+                      //   height: 20,
+                      //   width: 20,
+                      // ),
+                      Image.asset('assets/images/Bookmark.png'),
+
+                      const SizedBox(width: 100),
+                        SvgPicture.asset(
+                        'assets/images/Vector1.svg',
+                        height: 20,
+                        width: 20,
                       ),
                     ],
                   ),
