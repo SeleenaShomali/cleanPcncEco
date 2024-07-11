@@ -70,6 +70,7 @@ flutter:
     - assets/images/menu.png
     - assets/images/Vector.svg
     - assets/images/Vector1.svg
+    - assets/images/Hvector.png
     - assets/images/Bookmark.png
   #   - images/a_dot_ham.jpeg
 
