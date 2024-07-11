@@ -60,7 +60,6 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.only(left: 16),
               child: CircleAvatar(
                 backgroundColor: Color.fromARGB(255, 246, 242, 242),
-                
                 child: IconButton(
                     onPressed: () {
                       Scaffold.of(context).openDrawer();
@@ -79,7 +78,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 40,
                 child: Image.asset('assets/images/name.png'),
               ),
-  
               Container(
                 height: 20,
                 child: Text(
@@ -155,7 +153,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-  }void _showLogoutDialog(BuildContext context) {
+  }
+
+  void _showLogoutDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -194,7 +194,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     authController.isLoading.value = true;
                     await authController.logout(); // Call the logout method
                     if (Navigator.of(context).canPop()) {
-                      Navigator.of(context).pop(); // Close the dialog after logout
+                      Navigator.of(context)
+                          .pop(); // Close the dialog after logout
                     }
                   },
                   child: const Text('Logout'),
@@ -205,5 +206,4 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
   }
-
 }
