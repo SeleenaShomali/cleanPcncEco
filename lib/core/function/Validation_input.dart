@@ -19,10 +19,10 @@ String? validInput(String val, String field) {
       return "Username contains dangerous characters";
     }
   } else if (field == 'Password') {
-    if (val.length < 8) {
+    if (val.length < 8 ) {
       return 'Password must be at least 8 characters';
-    } else if (val.length > 100) {
-      return 'Password must be less than or equal to 100 characters';
+    } else if (val.length > 26) {
+      return 'Password must be less than or equal to 26 characters';
     } else if (!RegExp(r'(?=.*[a-z])').hasMatch(val)) {
       return 'Password must contain at least one lowercase letter';
     } else if (!RegExp(r'(?=.*[A-Z])').hasMatch(val)) {
