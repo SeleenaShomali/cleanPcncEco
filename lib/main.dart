@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/login', page: () => Login()),
         GetPage(name: '/home', page: () => HomeScreen()),
         GetPage(name: '/signup', page: () => SignupPage()),
-        GetPage(name: '/allCat', page: () => AllCategories()),
+        GetPage(name: '/AllCat', page: () => AllCategories()),
         GetPage(name: '/trend', page: () => TendingProducts()),
         // Add other pages here
       ],
