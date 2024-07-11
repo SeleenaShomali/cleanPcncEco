@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pcnc_ecommerce/core/function/Validation_input.dart';
 import 'package:pcnc_ecommerce/presentation/controller/login_controller.dart';
+import 'package:pcnc_ecommerce/presentation/pages/components/Custom_text_filed.dart';
 
 class Login extends StatelessWidget {
   final LoginController lcontroller = Get.find<LoginController>();
@@ -57,48 +58,33 @@ class Login extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextFormField(
+            CustomTextField(
+              controller: emailController,
+              hintText: "Username or Email",
               validator: (value) {
                 return validInput(value!, 'Email');
               },
-              controller: emailController,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(20),
-                hintText: "Username or Email",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                fillColor: Colors.black.withOpacity(0.03),
-                filled: true,
-                prefixIcon: Icon(Icons.person_sharp),
-              ),
+              prefixIcon: Icon(Icons.person_sharp),
+              obscureText: false,
             ),
             const SizedBox(height: 31),
-            TextFormField(
+            CustomTextField(
+              controller: passwordController,
+              hintText: "Password",
               validator: (value) {
                 return validInput(value!, 'Password');
               },
-              controller: passwordController,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(20),
-                hintText: "Password",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+              prefixIcon: const Icon(Icons.lock),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  lcontroller.isObscure.value
+                      ? Icons.visibility_off
+                      : Icons.visibility,
+                  color: Color.fromARGB(255, 14, 14, 14),
                 ),
-                fillColor: Colors.black.withOpacity(0.03),
-                filled: true,
-                prefixIcon: const Icon(Icons.lock),
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    lcontroller.isObscure.value
-                        ? Icons.visibility_off
-                        : Icons.visibility,
-                    color: Color.fromARGB(255, 14, 14, 14),
-                  ),
-                  onPressed: () {
-                    lcontroller.toggleObscure();
-                  },
-                ),
+                onPressed: () {
+                  lcontroller.toggleObscure();
+                },
               ),
               obscureText: lcontroller.isObscure.value,
             ),
@@ -117,9 +103,18 @@ class Login extends StatelessWidget {
             const SizedBox(height: 35),
             ElevatedButton(
               onPressed: () {
-                // if (_formKey.currentState!.validate()) {
+             //   if (_formKey.currentState!.validate()) {
                   lcontroller.login(
-                      emailController.text, passwordController.text);
+                    emailController.text,
+                    passwordController.text,
+                  );
+               // }
+              },
+              // ElevatedButton(
+             // onPressed: () {
+                // if (_formKey.currentState!.validate()) {
+              //    lcontroller.login(
+              //        emailController.text, passwordController.text);
                 // } else {
                 //   // Show Snackbar if form is invalid
                 //   ScaffoldMessenger.of(context).showSnackBar(
@@ -130,7 +125,7 @@ class Login extends StatelessWidget {
                 //     ),
                 //   );
                 // }
-              },
+            //  },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(4),

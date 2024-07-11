@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pcnc_ecommerce/Data/repository/sign_up_datarepoImp.dart';
-import 'package:pcnc_ecommerce/Data/sources/Sign_remoteDataS.dart';
-import 'package:pcnc_ecommerce/Domain/usecases/sign_up_usecase.dart';
 import 'package:pcnc_ecommerce/core/function/Validation_input.dart';
 import 'package:pcnc_ecommerce/presentation/controller/sign_up_controller.dart';
+import 'package:pcnc_ecommerce/presentation/pages/components/Custom_text_filed.dart';
+
 
 class SignupPage extends StatelessWidget {
   SignupPage({super.key});
@@ -18,13 +17,7 @@ class SignupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final SRemoteDataSource remoteDataSource = SRemoteDataSource();
-    final SignupRepositoryImpl signupRepository =
-        SignupRepositoryImpl(remoteDataSource: remoteDataSource);
-    final SignupUseCase signupUseCase =
-        SignupUseCase(repository: signupRepository);
-    final SignupController signupController =
-        Get.put(SignupController(signupUseCase: signupUseCase));
+    final SignupController signupController = Get.find<SignupController>();
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -78,90 +71,62 @@ class SignupPage extends StatelessWidget {
         autovalidateMode: AutovalidateMode.always,
         child: Column(
           children: <Widget>[
-            TextFormField(
+            CustomTextField(
+              controller: nameController,
+              hintText: "Username",
               validator: (value) {
                 return validInput(value!, 'Username');
               },
-              controller: nameController,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(20),
-                hintText: "Username",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                fillColor: Colors.black.withOpacity(0.03),
-                filled: true,
-                prefixIcon: const Icon(Icons.person),
-              ),
+              prefixIcon: Icon(Icons.person),
+              obscureText: false,
             ),
             const SizedBox(height: 31),
-            TextFormField(
+            CustomTextField(
+              controller: emailController,
+              hintText: "Email",
               validator: (value) {
                 return validInput(value!, 'Email');
               },
-              controller: emailController,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(20),
-                hintText: "Email",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                fillColor: Colors.black.withOpacity(0.03),
-                filled: true,
-                prefixIcon: const Icon(Icons.email),
-              ),
+              prefixIcon: Icon(Icons.email),
+              obscureText: false,
             ),
             const SizedBox(height: 31),
-            TextFormField(
+            CustomTextField(
+              controller: passwordController,
+              hintText: "Password",
               validator: (value) {
                 return validInput(value!, 'Password');
               },
-              controller: passwordController,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(20),
-                hintText: "Password",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                fillColor: Colors.black.withOpacity(0.03),
-                filled: true,
-                prefixIcon: const Icon(Icons.lock),
-                suffixIcon: IconButton(
-                  icon: Icon(signupController.isObscure.value
+              prefixIcon: Icon(Icons.lock),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  signupController.isObscure.value
                       ? Icons.visibility_off
-                      : Icons.visibility),
-                  onPressed: () {
-                    signupController.toggleObscure();
-                  },
+                      : Icons.visibility,
                 ),
+                onPressed: () {
+                  signupController.toggleObscure();
+                },
               ),
               obscureText: signupController.isObscure.value,
             ),
             const SizedBox(height: 31),
-            TextFormField(
+            CustomTextField(
+              controller: confirmPasswordController,
+              hintText: "Confirm Password",
               validator: (value) {
                 return validInput(value!, 'Password');
               },
-              controller: confirmPasswordController,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(20),
-                hintText: "Confirm Password",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+              prefixIcon: Icon(Icons.lock),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  signupController.isObscure1.value
+                      ? Icons.visibility_off
+                      : Icons.visibility,
                 ),
-                fillColor: Colors.black.withOpacity(0.03),
-                filled: true,
-                prefixIcon: const Icon(Icons.lock),
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    signupController.isObscure1.value
-                        ? Icons.visibility_off
-                        : Icons.visibility,
-                  ),
-                  onPressed: () {
-                    signupController.toggleObscure2();
-                  },
-                ),
+                onPressed: () {
+                  signupController.toggleObscure2();
+                },
               ),
               obscureText: signupController.isObscure1.value,
             ),
@@ -210,7 +175,8 @@ class SignupPage extends StatelessWidget {
           style: TextStyle(fontSize: 20, color: Colors.white),
         ),
         style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
           padding: const EdgeInsets.symmetric(vertical: 14),
           backgroundColor: Colors.orange,
         ),
