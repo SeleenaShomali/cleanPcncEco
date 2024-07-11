@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pcnc_ecommerce/Data/repository/logoutRepository.dart';
@@ -64,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: () {
                       Scaffold.of(context).openDrawer();
                     },
-                    icon: Image.asset('assets/images/menu.png')),
+                    icon: SvgPicture.asset('assets/images/Component1.svg')),
               ),
             );
           },

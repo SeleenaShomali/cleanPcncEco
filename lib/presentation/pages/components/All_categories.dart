@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pcnc_ecommerce/presentation/controller/category_controller.dart';
 import 'package:pcnc_ecommerce/presentation/pages/components/FullImage.dart';
@@ -14,7 +15,6 @@ class _AllCategoriesState extends State<AllCategories> {
   final CategoryController categoryController = Get.find();
   TextEditingController searchController = TextEditingController();
   String searchText = '';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +24,14 @@ class _AllCategoriesState extends State<AllCategories> {
           style: TextStyle(color: Colors.red),
         ),
         centerTitle: true,
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: SvgPicture.asset('assets/images/Component1.svg'),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+          ),
+        ),
       ),
       drawer: Drawer(
         child: ListView(
@@ -47,7 +55,7 @@ class _AllCategoriesState extends State<AllCategories> {
               title: const Text('Back to Home'),
               onTap: () {
                 // Navigate back to home or any action needed
-                Get.offAllNamed('home');
+                Get.offAllNamed('/home');
               },
             ),
           ],
