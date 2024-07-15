@@ -1,5 +1,4 @@
 String? validInput(String val, String field) {
-  // List of dangerous characters
   final dangerousCharacters = r'[<>/\"%#$!()&+{}|~]';
 
   if (val.isEmpty) {
@@ -19,7 +18,7 @@ String? validInput(String val, String field) {
       return "Username contains dangerous characters";
     }
   } else if (field == 'Password') {
-    if (val.length < 8 ) {
+    if (val.length < 8) {
       return 'Password must be at least 8 characters';
     } else if (val.length > 26) {
       return 'Password must be less than or equal to 26 characters';
@@ -29,8 +28,6 @@ String? validInput(String val, String field) {
       return 'Password must contain at least one uppercase letter';
     } else if (!RegExp(r'(?=.*\d)').hasMatch(val)) {
       return 'Password must contain at least one digit';
-    } else if (!RegExp(r'(?=.*[!@#$%^&*()_+=|<>?{}[\]~-])').hasMatch(val)) {
-      return 'Password must contain at least one special character';
     } else if (RegExp(dangerousCharacters).hasMatch(val)) {
       return "Password contains dangerous characters";
     }

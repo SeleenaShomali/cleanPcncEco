@@ -6,7 +6,6 @@ import 'package:pcnc_ecommerce/Domain/entities/signup_useer.dart';
 
 import 'package:pcnc_ecommerce/Domain/repositries/sign_up_repo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 class SignupRepositoryImpl implements SignupRepository {
   final SRemoteDataSource remoteDataSource;
   final FlutterSecureStorage storage = const FlutterSecureStorage();
@@ -16,16 +15,27 @@ class SignupRepositoryImpl implements SignupRepository {
 
   @override
   Future<SignupUser> signup(String name, String email, String password) async {
-    final data = await remoteDataSource.signup(name, email, password, defaultAvatarUrl);
+    try {
+      final data = await remoteDataSource.signup(name, email, password, defaultAvatarUrl);
+      
+      print('Signup response data: $data'); // Add this line for debugging
 
-    final user = SignupUser.fromJson(data);
+      if (data == null || data['error'] != null) {
+        throw Exception(data['error'] ?? 'Signup failed');
+      }
 
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('user', json.encode(user.toJson()));
-    await storage.write(key: 'name', value: name);
-    await storage.write(key: 'email', value: email);
-    await storage.write(key: 'password', value: password);
+      final user = SignupUser.fromJson(data);
 
-    return user;
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('user', json.encode(user.toJson()));
+      await storage.write(key: 'name', value: name);
+      await storage.write(key: 'email', value: email);
+      await storage.write(key: 'password', value: password);
+
+      return user;
+    } catch (e) {
+      print('Repository signup error: ${e.toString()}'); // Add this line for debugging
+      throw Exception('Failed to create user: ${e.toString()}');
+    }
   }
 }

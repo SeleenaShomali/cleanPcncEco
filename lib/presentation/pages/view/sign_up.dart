@@ -23,23 +23,30 @@ class SignupPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 25),
-          height: MediaQuery.of(context).size.height - 50,
+          height: MediaQuery.of(context).size.height - 40,
           width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
+          child: ListView(
+            children: [
               Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  const SizedBox(height: 40),
-                  _header(),
-                  const SizedBox(height: 20),
+                  Column(
+                    children: <Widget>[
+                  
+                      _header(),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
+                  _inputFiled(signupController),
+                        const SizedBox(height: 15),
+                  _text(),
+                      const SizedBox(height: 30),
+                  _signUp(signupController),
+                  
+                  _lastText(),
                 ],
               ),
-              _inputFiled(signupController),
-              _text(),
-              _signUp(signupController),
-              _lastText(),
             ],
           ),
         ),
@@ -49,7 +56,7 @@ class SignupPage extends StatelessWidget {
 
   Widget _header() {
     return Padding(
-      padding: const EdgeInsets.only(right: 154, top: 63),
+      padding: const EdgeInsets.only(right: 140, top: 33),
       child: Container(
         width: 200,
         child: Text(

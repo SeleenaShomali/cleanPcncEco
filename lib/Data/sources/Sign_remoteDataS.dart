@@ -18,10 +18,20 @@ class SRemoteDataSource {
       }),
     );
 
+    print('Request Body: ${jsonEncode({
+      'name': name,
+      'email': email,
+      'password': password,
+      'avatar': avatar,
+    })}'); // Logging request body
+
+    print('Response Status Code: ${response.statusCode}'); // Logging status code
+    print('Response Body: ${response.body}'); // Logging response body
+
     if (response.statusCode == 201) {
       return json.decode(response.body);
     } else {
-      throw Exception('Failed to create user');
+      throw Exception('Failed to create user: ${response.body}'); // Enhanced error message
     }
   }
 }
