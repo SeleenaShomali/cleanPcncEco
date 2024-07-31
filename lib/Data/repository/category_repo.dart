@@ -16,7 +16,7 @@ class CategoryRepository {
       print('Request URL for categories: ${request.url}');
       print('Request Headers for categories: ${request.headers}');
 
-      // Send the request
+      // Send the request 
       final response = await request.send();
 
       // Convert the streamed response into a Response object

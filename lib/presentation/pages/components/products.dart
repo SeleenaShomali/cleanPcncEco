@@ -28,7 +28,7 @@ class ProductList extends StatelessWidget {
           physics: NeverScrollableScrollPhysics(),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 0.666, // Adjust the aspect ratio as needed
+            childAspectRatio: 0.72, // Adjust the aspect ratio as needed
             crossAxisSpacing: 8.0, // Spacing between columns
             mainAxisSpacing: 20, // Spacing between rows
           ),
@@ -154,7 +154,7 @@ class ProductCard extends StatelessWidget {
                       // ),
                       Image.asset('assets/images/Bookmark.png'),
 
-                      const SizedBox(width: 80),
+                      const SizedBox(width: 100),
                         SvgPicture.asset(
                         'assets/images/Vector1.svg',
                         height: 20,
